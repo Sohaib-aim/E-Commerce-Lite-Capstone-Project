@@ -1,59 +1,196 @@
-const cartBtn = document.getElementById("cart-button")
-const cartBar = document.getElementById("cart")
-const cartItems = document.getElementById("cart-items")
-const cartClose = document.getElementById("close")
-const overlay = document.getElementById("overlay")
-const addCart = document.getElementsByClassName("add-to-cart")
+const cartBtn = document.getElementById("cart-button");
+const cartBar = document.getElementById("cart");
+const cartItems = document.getElementById("cart-items");
+const cartClose = document.getElementById("close");
+const overlay = document.getElementById("overlay");
+const container = document.getElementById("display-cards");
 
-const API = 'http://localhost:3000/products'
+let allProducts = [];
+const API = "http://localhost:3000/products";
 
-async function loadProducts(){
-    const res = await fetch(API)
-    const products = await res.json()
+async function loadProducts() {
+  const res = await fetch(API);
+  const products = await res.json();
+  allProducts = products;
 
-    const container = document.getElementById("display-cards")
-
-    container.innerHTML = products.map(product=>{
-        return(
-            `<div class="card">
+  container.innerHTML = products.map((product) => {
+      return `<div class="card">
                 <img src="${product.image}"/>
                 <div class="details">  
                     <p>${product.category}</p>
                     <h3>${product.title}</h3>
                     <h2 id="price">$${product.price}</h2>
-                    <button onclick="addToCart()" class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                    <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
                 </div>
-            </div>`
-        )
-    }).join("")
+            </div>`;
+    })
+    .join("");
 }
 
 loadProducts();
 
 
 
+const searchInput = document.getElementById("search-input");
+const categoryFilter = document.getElementById("category-filter");
+
+searchInput.addEventListener("input", (e) => {
+    const searchTerm = e.target.value.toLowerCase().trim();
+
+    const searchResults = allProducts.filter(product => {
+        return product.title.toLowerCase().includes(searchTerm);
+    });
+
+    container.innerHTML = searchResults.map(product => {
+        return `
+            <div class="card">
+                <img src="${product.image}">
+                <div class="details"> 
+                <h3>${product.title}</h3>
+                <h2 id="price">$${product.price}<h2>
+                <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+                </div>
+              </div>
+        `;
+    }).join("");
+});
 
 
+categoryFilter.addEventListener("change", (e)=>{
 
-cartBtn.onclick = ()=>{
-    cartBar.classList.add("open")
-    overlay.classList.add("active")
+  let filteredProducts;
+  const categorySelected = e.target.value.toLowerCase().trim()
+
+  if (categorySelected === "all" || categorySelected === "") {
+        filteredProducts = allProducts}
+  else{
+      filteredProducts = allProducts.filter(product => product.category.toLowerCase() == categorySelected);
+  }
+
+  container.innerHTML = filteredProducts.map(product=>{
+    return`<div class="card">
+                <img src="${product.image}">
+                <div class="details"> 
+                <h3>${product.title}</h3>
+                <h2 id="price">$${product.price}<h2>
+                <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+                </div>
+              </div>`
+  }).join("")
+
+})
+
+cartBtn.onclick = () => {
+  cartBar.classList.add("open");
+  overlay.classList.add("active");
+};
+
+cartClose.onclick = () => {
+  cartBar.classList.remove("open");
+  overlay.classList.remove("active");
+};
+
+let cart = [];
+
+container.addEventListener("click", (e) => {
+  const button = e.target.closest(".add-to-cart");
+  if (button) {
+    const productID = button.dataset.id;
+    addToCart(productID);
+  }
+});
+
+function addToCart(productID) {
+  const isPresent = cart.find((item) => item.id === productID);
+  if (isPresent) {
+    isPresent.quantity += 1;
+  } else {
+    cart.push({ id: productID, quantity: 1 });
+  }
+  showCart();
 }
 
-cartClose.onclick = ()=>{
-    cartBar.classList.remove("open")
-    overlay.classList.remove("active")
+function showCart() {
+
+  let totalPrice = 0
+
+  const cartHTML = cart.map((item) => {
+      const productDetails = allProducts.find(
+        (product) => product.id === item.id,
+      );
+
+      totalPrice += item.quantity * productDetails.price
+
+      if (!productDetails) {
+        return "";
+      } else {
+        return `
+      <div class="cart-item">
+        <img src="${productDetails.image}"/>
+        <div class="cart-item-details">
+            <div class="cart-item-header">
+                <h5 class="cart-item-title">${productDetails.title}</h5>
+                <span class="cart-item-price">$${productDetails.price}</span>
+            </div>
+            <div class="cart-item-controls">
+                <div class="quantity-controls">
+                    <button class="qty-btn minus-btn" data-id="${item.id}">-</button>
+                    <span class="qty-num">${item.quantity}</span>
+                    <button class="qty-btn plus-btn" data-id="${item.id}">+</button>
+                </div>
+                <button class="delete-btn" data-id="${item.id}">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>`}}).join("");
+
+    const totalHTML = ()=>{
+                      if (totalPrice == 0){
+                        return `<div id="cart-items">
+                                  <p>Your cart is empty</p>
+                                </div>`
+                      }
+                      else{
+                        return (`<div class="cart-total-container">
+                          <h3>Total:</h3>
+                          <span class="cart-total-price">$${totalPrice.toFixed(2)}</span>
+                        </div>
+                        <button id="checkout-btn">Checkout<i class="fas fa-arrow-right arrow-icon"></i></button>
+                        <p id="cart-last-line">Shipping calculated at next step.</p>`)}}
+
+    cartItems.innerHTML = cartHTML + totalHTML()
 }
 
-//let cart = []
+cartItems.addEventListener("click", (e)=>{
+  const targetBtn = e.target.closest("button")
 
-//function addToCart(){
-  //  console.log("c")
-    //cart.push("Laptop")
-    //showCart()
-//}
+  if(!targetBtn){
+    return;
+  }
+  
+  const productID = targetBtn.dataset.id
+  
+  if(targetBtn.classList.contains("plus-btn")){
+    const item = cart.find(item => item.id == productID)
+    if(item){
+      item.quantity += 1
+    }
+  }
 
+  if (targetBtn.classList.contains("minus-btn")){
+    const item = cart.find(item => item.id == productID)
 
-//function showCart(){
-  //  cartItems.innerHTML = cart.map(item=> `<p>${item}</p>`).join("")
-//}
+    if(item){
+      item.quantity -=1
+
+      if(item.quantity === 0){
+        cart = cart.filter(item => item.id != productID)
+      }
+    }
+  }
+  if (targetBtn.closest(".delete-btn")) {
+        cart = cart.filter(item => item.id != productID);
+    }
+    showCart();
+})
