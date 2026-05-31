@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=League+Spartan:wght@100..900&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+        <link rel="stylesheet" href="style.css">
+        <title>E-Commerce Lite Project</title>
+    </head>
+    <body>
+        <header id="nav-header">
+            <img src="images/logo.png">
+            <search>
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Search curated essentials...">
+            </search>
+            <i id="cart-button" class="fa fa-shopping-cart"></i>
+            <div id="overlay"></div>
+            <div id="cart">
+                <div id="cart-header">
+                    <h1>Your Cart</h1>
+                    <button><i id="close" class="far fa-times"></i></button>
+                </div>
+                <div id="cart-items">
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+        </header>
+        <section id="hero" class="hero-section">
+            <div>     
+             <p>NEW ARRIVAL 2024</p>
+             <h1>Refined Essentials for the <br> Modern Minimalists.</h1>
+            </div>
+            <div id="hero-buttons">
+                <button>View All</button>
+                <select id="category-filter">
+                    <option value="all">Categories</option>
+                    <option value="t-shirts">T-Shirts</option>
+                    <option value="bags">Bags</option>
+                    <option value="men's clothing">Men's Clothing</option>
+                </select>
+            </div>
+        </section>
+        <section id="display-cards">
+            <div class="card">
+                <img src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_t.png">
+                <div class="details">  
+                    <p>Men's Clothing</p>
+                    <h3>Mens Casual Premium Slim Fit T-Shirts</h2>
+                    <h2 id="price">$22.3</h2>
+                    <button><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png">
+                <div class="details">  
+                    <p>Men's Clothing</p>
+                    <h3>Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops</h2>
+                    <h2 id="price">$109.95</h2>
+                    <button><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_t.png">
+                <div class="details">  
+                    <p>Men's Clothing</p>
+                    <h3>Mens Cotton Jacket</h2>
+                    <h2 id="price">$55.99</h2>
+                    <button><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_t.png">
+                <div class="details">  
+                    <p>Men's Clothing</p>
+                    <h3>Mens Casual Slim Fit</h2>
+                    <h2 id="price">$15.99</h2>
+                    <button><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                </div>
+            </div>
+        </section>
+        <section id="banner">
+            <h2 id="main-h2">Curated Collections</h2>
+            <div class="banner-imgs">
+                <div id="banner-img-1">
+                    <p>Winter 2024</p>
+                    <h1>The Urban Uniform</h1>
+                    <button>Explore Lookbook</button>
+                </div>
+                <div id="banner-img-2">
+                    <h2>Technical Textures</h2>
+                    <p>Explore the materials that define our longevity-focused design philosophy.</p>
+                    <button>View Details <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div id="footer-sec">
+                <div>
+                    <img src="images/logo.png">
+                    <p id="footer-p1">Purity in form, precision in function. We build the <br> essentials for a life less cluttered.</p>
+                    <button><i class="fa fa-share-alt"></i></button>
+                    <button><i class="fa fa-envelope"></i></button>
+                </div>
+                <div class="footer-p2">
+                    <h5>SHOP</h5>
+                    <p>All Products</p>
+                    <p>New Arrivals</p>
+                    <p>Collections</p>
+                    <p>Limited Drop</p>
+                </div>
+                <div class="footer-p2">
+                    <h5>SUPPORT</h5>
+                    <p>Shipping</p>
+                    <p>Track Order</p>
+                    <p>Returns</p>
+                    <p>Sustainability</p>
+                </div>
+            </div>
+            <div id="footer-bottom">
+                <p>© 2024 LITE E-COMMERCE. ALL RIGHTS RESERVED.</p>
+                <div>
+                    <p>Privacy Policy</p>
+                    <p>Terms of Service</p>
+                </div>
+            </div>
+        </footer>
+        <script src="app.js"></script>
+    </body>
+</html>

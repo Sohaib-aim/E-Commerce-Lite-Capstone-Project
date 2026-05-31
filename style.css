@@ -1,0 +1,345 @@
+body{
+    background: white;
+    font-family: 'Inter';
+    margin: 0;
+}
+
+#nav-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 40px;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+#nav-header input{
+    font-size: 16px;
+    font-weight: 400;
+    width: 392px;
+    height: 40px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    background: rgb(239, 239, 239);
+}
+
+
+
+#nav-header search{
+    display: flex;
+    align-items: center;
+    width: 432px;
+    height: 40px;
+    padding: 8px;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    background: rgb(239, 239, 239);
+    cursor: text;
+}
+
+#nav-header search:focus-within{
+    border: 2px solid rgb(180, 180, 255);
+}
+
+#nav-header search i{
+    opacity: 0.5;
+    width: 20px;
+    height: 16px;
+    margin-left: 8px;
+}
+#nav-header i:hover{
+    color: #003EC7;
+    cursor: pointer;
+}
+
+#cart{
+    position: fixed;
+    top: 0;
+    right: -500px;
+    width: 350px;
+    height: 100vh;
+    background: white;
+    z-index: 1001;
+    padding: 20px;
+    transition: right 0.3s ease;
+    box-shadow: -2px 0px 10px rgba(0,0,0,0.2);
+}
+
+#cart.open{
+    right: 0px;
+}
+
+#cart-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#cart-header button{
+    font-size: 20px;
+    background: none;
+    border: none;
+}
+
+#overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+#overlay.active{
+    visibility: visible;
+    opacity: 1;
+}
+
+#hero{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 20px;
+}
+
+#hero p{
+    font-weight: bold;
+    color: #003EC7;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+#hero h1{
+    font-size: 48px;
+    margin-top: 8px;
+}
+
+#hero button, select{
+    text-align: center;
+    padding: 12px 24px;
+    border: 1px solid rgb(121, 120, 120);
+    border-radius: 50px;
+    background: white;
+}
+
+#hero button:focus{
+    border: 2px solid rgb(180, 180, 255)
+}
+
+#hero-buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#category-filter {
+    appearance: none;
+}
+
+#category-filter:focus{
+    outline: none;
+    border: 2px solid rgb(180, 180, 255)
+}
+
+#display-cards{
+    padding-left: 40px;
+    padding-right: 40px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#display-cards .card{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(171, 171, 170);
+    border-radius: 20px;
+    flex: 1 1 250px;
+    transition: ease 0.3s;
+}
+
+#display-cards .card:hover{
+    transform: scale(1.03);
+}
+
+#display-cards .card img{
+    width: 100%;
+    height: 220px;
+    display: block;
+    object-fit: contain;
+}
+
+#display-cards .card .details{
+    padding: 16px;
+}
+
+#display-cards .card .details p{
+    opacity: 0.5;
+    margin-bottom: 4px;
+}
+
+#display-cards .card .details h2{
+    color: #003EC7;
+    margin-top: 4px;
+}
+
+#display-cards .card button{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background: #003EC7;
+    color: white;
+    font-size: 16px;
+    border: none;
+    padding: 16px 0px;
+    width: 100%;
+    height: 54px;
+    border-radius: 10px;
+}
+
+#display-cards .card .details{
+    margin-top: auto;
+}
+
+#main-h2{
+    margin-top: 80px;
+    padding-left: 40px;
+}
+
+#banner-img-1{
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.4),
+        rgba(0, 0, 0, 0.4)),url("images/curated.png");
+    width: 50%;
+    height: 100%;
+    padding: 32px;
+    color: white;
+    border-radius: 20px;
+    transition: transform ease 0.3s;
+}
+
+#banner-img-2{
+    background-color: #003EC7;
+    background-image: linear-gradient(
+            rgba(0, 62, 199, 0.5),
+            rgba(0, 62, 199, 0.5)),url("images/curated2.png");
+    width: 40%;
+    height: 100%;
+    padding: 32px;
+    color: white;
+    border-radius: 20px;
+    transition: transform ease 0.3s;
+}
+
+#banner-img-1, #banner-img-2{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.banner-imgs{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 40px 40px 100px 40px;
+    height: 436px;
+}
+
+#banner-img-1:hover, #banner-img-2:hover{
+    transform: scale(1.01);
+}
+
+#banner button{
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 30px;
+}
+
+#banner button:hover{
+    background: #003EC7;
+    color: white;
+    cursor: pointer;
+}
+
+#footer-sec{
+    margin-top: 64px;
+    padding: 64px 40px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background: white;
+    border-top: 0.667px solid rgb(107, 107, 107);
+    border-bottom: 0.667px solid rgb(107, 107, 107);
+}
+
+#footer-sec p{
+    opacity: 0.6;
+}
+
+#footer-sec img,
+#footer-sec h5{
+    margin-bottom: 16px;
+}
+
+#footer-p1{
+    margin-bottom: 24px;
+}
+
+#footer-bottom{
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 32px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+#footer-bottom div{
+    display: flex;
+    gap: 15px;
+}
+
+#footer-sec .footer-p2 p:hover{
+    color: blue;
+    cursor: pointer;
+}
+
+#footer-sec button{
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#footer-sec button:hover{
+    background: #003EC7;
+    color: white;
+}
+
+#footer-bottom p {
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+#footer-bottom div p:hover{
+    opacity: 1;
+    cursor: pointer;
+}
