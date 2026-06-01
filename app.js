@@ -48,7 +48,8 @@ searchInput.addEventListener("input", (e) => {
         return `
             <div class="card">
                 <img src="${product.image}">
-                <div class="details"> 
+                <div class="details">
+                <p>${product.category}</p> 
                 <h3>${product.title}</h3>
                 <h2 id="price">$${product.price}<h2>
                 <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
@@ -63,7 +64,8 @@ viewAllBtn.addEventListener("click", ()=>{
     container.innerHTML = allProducts.map(product=>{
     return`<div class="card">
                 <img src="${product.image}">
-                <div class="details"> 
+                <div class="details">
+                <p>${product.category}</p> 
                 <h3>${product.title}</h3>
                 <h2 id="price">$${product.price}<h2>
                 <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
@@ -86,7 +88,8 @@ categoryFilter.addEventListener("change", (e)=>{
   container.innerHTML = filteredProducts.map(product=>{
     return`<div class="card">
                 <img src="${product.image}">
-                <div class="details"> 
+                <div class="details">
+                <p>${product.category}</p> 
                 <h3>${product.title}</h3>
                 <h2 id="price">$${product.price}<h2>
                 <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
