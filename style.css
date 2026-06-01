@@ -402,6 +402,81 @@ body{
     cursor: pointer;
 }
 
+.section-p1 {
+  padding: 40px 80px;
+}
+
+.section-m1 {
+  margin: 40px 0;
+}
+
+#newsletter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #092665;
+}
+
+#newsletter h4 {
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+}
+
+#newsletter p {
+  font-size: 14px;
+  font-weight: 600;
+  color: #818ea0;
+}
+
+#newsletter p span {
+  color: #ffbd27;
+}
+
+#newsletter input {
+  height: 2.125rem;
+  padding: 0 1.25rem;
+  font-size: 14px;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  outline: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#newsletter .form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 40%;
+}
+
+#newsletter input, #newsletter textarea {
+    width: 100%;
+    padding: 10px 1.25rem;
+    font-size: 14px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    outline: none;
+}
+
+#newsletter button {
+    background-color: #003EC7;
+    color: white;
+    border: none;
+    width: 30%;
+    white-space: nowrap;
+    padding: 16px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#newsletter button:hover{
+    background-color: #006aff;
+}
+
 #footer-sec{
     margin-top: 64px;
     padding: 64px 40px;

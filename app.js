@@ -4,6 +4,13 @@ const cartItems = document.getElementById("cart-items");
 const cartClose = document.getElementById("close");
 const overlay = document.getElementById("overlay");
 const container = document.getElementById("display-cards");
+const searchInput = document.getElementById("search-input");
+const categoryFilter = document.getElementById("category-filter");
+const viewAllBtn = document.getElementById("view-all-button");
+const msgName = document.getElementById("name");
+const msgEmail = document.getElementById("email");
+const msgText = document.getElementById("message");
+const msgForm = document.getElementById("newsletter-form");
 
 let allProducts = [];
 const API = "http://localhost:3000/products";
@@ -30,10 +37,6 @@ async function loadProducts() {
 loadProducts();
 
 
-
-const searchInput = document.getElementById("search-input");
-const categoryFilter = document.getElementById("category-filter");
-
 searchInput.addEventListener("input", (e) => {
     const searchTerm = e.target.value.toLowerCase().trim();
 
@@ -55,6 +58,19 @@ searchInput.addEventListener("input", (e) => {
     }).join("");
 });
 
+viewAllBtn.addEventListener("click", ()=>{
+
+    container.innerHTML = allProducts.map(product=>{
+    return`<div class="card">
+                <img src="${product.image}">
+                <div class="details"> 
+                <h3>${product.title}</h3>
+                <h2 id="price">$${product.price}<h2>
+                <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+                </div>
+              </div>`
+  }).join("")
+})
 
 categoryFilter.addEventListener("change", (e)=>{
 
@@ -193,4 +209,46 @@ cartItems.addEventListener("click", (e)=>{
         cart = cart.filter(item => item.id != productID);
     }
     showCart();
+})
+
+msgForm.addEventListener("submit", async (e)=>{
+  e.preventDefault();
+
+  const msgNameValue = msgName.value;
+  const msgEmailValue = msgEmail.value;
+  const msgTextValue = msgText.value;
+
+  if ((!msgNameValue) || (!msgEmailValue) || (!msgTextValue)){
+    alert("Please fill in all fields before sending message!")
+    return;
+  }
+
+  const url = "http://localhost:3000/messages"
+
+  const messageData = {
+    name: msgNameValue,
+    email: msgEmailValue,
+    message: msgTextValue
+  }
+
+  try{
+   const response = await fetch(url, {
+      method: "POST",
+      headers:{"Content-Type" : "application/json"},
+      body: JSON.stringify(messageData),
+    });
+
+    if(!response.ok){
+      throw new Error("Failed to send message to the server!")
+    }
+
+    alert("Message sent successfully!")
+
+    msgName.value = "";
+    msgEmail.value = "";
+    msgText.value = "";
+  }
+  catch (error){
+    alert ("Could not save message. Our JSON Server is not running.");
+  }
 })
