@@ -43,45 +43,49 @@
             <h2>Add New Product</h2>
             <p>List a new luxury item in the storefront.</p>
           </div>
-          <div id="product-name-price">
-            <div class="product-input">
-              <label for="product-name">Product Name</label>
-              <input
-                type="text"
-                id="product-name"
-                placeholder="e.g. travel bag for men"
-              />
+          <form id="product-form">
+            <div id="product-name-price">
+              <div class="product-input">
+                <label for="product-name">Product Name</label>
+                <input
+                  type="text"
+                  id="product-name"
+                  placeholder="e.g. travel bag for men"
+                />
+              </div>
+              <div class="product-input">
+                <label for="product-price">Price (USD)</label>
+                <input type="number" step="0.01" id="product-price" placeholder="0.00" />
+              </div>
             </div>
-            <div class="product-input">
-              <label for="product-price">Price (USD)</label>
-              <input type="number" id="product-price" placeholder="0.00" />
+            <div id="product-image">
+              <div class="product-input">
+                <label for="product-img">Image Url</label>
+                <input
+                  type="url"
+                  id="product-img"
+                  placeholder="https://images.unsplash.com/..."
+                />
+              </div>
             </div>
-          </div>
-          <div id="product-image">
-            <div class="product-input">
-              <label for="product-img">Image Url</label>
-              <input
-                type="url"
-                id="product-img"
-                placeholder="https://images.unsplash.com/..."
-              />
+            <div id="product-description">
+              <div class="product-input">
+                <label for="product-desc">Description</label>
+                <textarea
+                  id="product-desc"
+                  rows="5"
+                  placeholder="Describe the item's material, craftsmanship, and aesthetic appeal..."
+                ></textarea>
+              </div>
             </div>
-          </div>
-          <div id="product-description">
-            <div class="product-input">
-              <label for="product-desc">Description</label>
-              <textarea
-                id="product-desc"
-                rows="5"
-                placeholder="Describe the item's material, craftsmanship, and aesthetic appeal..."
-              ></textarea>
+            <div id="save-product-btn">
+              <div class="product-input">
+                <button id="product-save-button">
+                  <i class="fa fa-save"></i>Save Product
+                </button>
+              </div>
             </div>
-          </div>
-          <div id="save-product-btn">
-            <div class="product-input">
-              <button><i class="fa fa-save"></i>Save Product</button>
-            </div>
-          </div>
+          </form>
         </section>
         <section id="live-inventory">
           <div id="inventory-heading">
