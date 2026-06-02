@@ -778,3 +778,47 @@ body{
     padding: 16px;
     border-bottom: 1px solid #e0e0e0;
 }
+
+#inventory-rows tr img{
+    width: 48px;
+    height: 48px;
+}
+
+#inventory-rows tr td:nth-child(1){
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+#inventory-rows .action-buttons{
+    padding: 8px;
+}
+
+#inventory-rows .action-buttons>.dlt-btn,
+#inventory-rows .action-buttons>.update-btn{
+    background: #0052ff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 4px 8px;
+}
+
+#inventory-rows .action-buttons>.dlt-btn:hover{
+    background: #cc0000;
+    cursor: pointer;
+}
+
+#inventory-rows .action-buttons>.update-btn:hover{
+    background: rgb(17, 128, 17);
+    cursor: pointer;
+}
+
+#inventory-rows .active-status{
+    background: rgb(218, 255, 218);
+    color: rgb(4, 110, 4);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 600;
+}
