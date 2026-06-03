@@ -15,24 +15,38 @@ const msgForm = document.getElementById("newsletter-form");
 let allProducts = [];
 const API = "http://localhost:3000/products";
 
-async function loadProducts() {
-  const res = await fetch(API);
-  const products = await res.json();
-  allProducts = products;
+function loadProducts() {
+  container.innerHTML = `
+              <div class="loading-container">
+                  <div class="spinner"></div>
+                  <p>Loading products...</p>
+              </div>`;
+  setTimeout( async ()=>{
+    try{
+      const res = await fetch(API);
+      const products = await res.json();
+      allProducts = products;
 
-  container.innerHTML = products.map((product) => {
-      return `<div class="card">
-                <img src="${product.image}"/>
-                <div class="details">  
-                    <p>${product.category}</p>
-                    <h3>${product.title}</h3>
-                    <h2 id="price">$${product.price}</h2>
-                    <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                </div>
+      container.innerHTML = products.map((product) => {
+          return `<div class="card">
+                    <img src="${product.image}"/>
+                    <div class="details">  
+                        <p>${product.category}</p>
+                        <h3>${product.title}</h3>
+                        <h2 id="price">$${product.price}</h2>
+                        <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                    </div>
+                </div>`;
+        })
+        .join("");
+        showCart();
+  } catch(error){
+    container.innerHTML = `
+            <div class="error-text">
+                <p>⚠️ Unable to load products. Please check your internet connection and try again.</p>
+                <button class="retry-btn" onclick="loadProducts()">Retry</button>
             </div>`;
-    })
-    .join("");
-    showCart();
+  }}, 500)
 }
 
 loadProducts();
