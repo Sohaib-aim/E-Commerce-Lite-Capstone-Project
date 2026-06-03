@@ -37,11 +37,13 @@ async function loadProducts() {
 
 loadProducts();
 
+let searchTimer;
 
 searchInput.addEventListener("input", (e) => {
+    clearTimeout(searchTimer);
     const searchTerm = e.target.value.toLowerCase().trim();
 
-    const searchResults = allProducts.filter(product => {
+    searchTimer = setTimeout(()=>{const searchResults = allProducts.filter(product => {
         return product.title.toLowerCase().includes(searchTerm);
     });
 
@@ -52,12 +54,12 @@ searchInput.addEventListener("input", (e) => {
                 <div class="details">
                 <p>${product.category}</p> 
                 <h3>${product.title}</h3>
-                <h2 id="price">$${product.price}<h2>
+                <h2 id="price">$${product.price}</h2>
                 <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
                 </div>
               </div>
         `;
-    }).join("");
+    }).join("");}, 500)
 });
 
 viewAllBtn.addEventListener("click", ()=>{
