@@ -831,3 +831,17 @@ body{
     font-size: 0.65rem;
     font-weight: 600;
 }
+
+#user-messages{
+    margin-top: 60px;
+}
+
+#message-heading{
+    opacity: 0.7;
+}
+
+#message-content .show-msg{
+    background: #eff0f1;
+    padding: 20px 10px;
+    border-radius: 10px;
+}

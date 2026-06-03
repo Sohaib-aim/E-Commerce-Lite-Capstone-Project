@@ -5,11 +5,13 @@ const productPriceInput = document.getElementById("product-price");
 const productImgInput = document.getElementById("product-img");
 const productDescInput = document.getElementById("product-desc");
 const productForm = document.getElementById("product-form");
+const displayMsg = document.getElementById("message-content");
 let allProducts;
 let currentEditingID = null;
 
 document.addEventListener("DOMContentLoaded", ()=>{
     fetchProducts();
+    fetchMessages();
 })
 
 async function fetchProducts() {
@@ -155,3 +157,29 @@ productForm.addEventListener("submit", async (e)=>{
         alert("An error occured while updating!")
     }
 });
+
+async function fetchMessages() {
+    const msgURL = "http://localhost:3000/messages";
+
+    try{
+        const response = await fetch(msgURL);
+        if(!response.ok){
+            throw new Error("Messages can't be fetched!")
+        }
+
+        const messages = await response.json();
+
+        if(messages.length === 0){
+            displayMsg.innerHTML = "<p>You don't have any messages yet.</p>";
+            return;
+        }
+
+        displayMsg.innerHTML = messages.map(message=>{
+            return `<p class="show-msg"><b>${message.name}</b>: ${message.message}</p>`
+        }).join("");
+    }
+
+    catch(error){
+        alert("Json server is not working!");
+    }
+}
