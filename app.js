@@ -32,6 +32,7 @@ async function loadProducts() {
             </div>`;
     })
     .join("");
+    showCart();
 }
 
 loadProducts();
@@ -109,24 +110,43 @@ cartClose.onclick = () => {
   overlay.classList.remove("active");
 };
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("shoppingCart")) || [];
 
 container.addEventListener("click", (e) => {
   const button = e.target.closest(".add-to-cart");
   if (button) {
+
     const productID = button.dataset.id;
     addToCart(productID);
+
+    if (button.classList.contains("added")) return;
+    
+    const originalText = button.innerHTML;
+
+    button.classList.add("added");
+    button.innerHTML = '\u2611 Added';
+
+    setTimeout(()=>{
+      button.classList.remove("added");
+      button.innerHTML = originalText;
+    }, 1500)
+
   }
 });
 
 function addToCart(productID) {
-  const isPresent = cart.find((item) => item.id === productID);
+  const isPresent = cart.find((item) => String(item.id) == String(productID));
   if (isPresent) {
     isPresent.quantity += 1;
   } else {
     cart.push({ id: productID, quantity: 1 });
   }
+  savetoLocalStorage();
   showCart();
+}
+
+function savetoLocalStorage(){
+  localStorage.setItem("shoppingCart", JSON.stringify(cart));
 }
 
 function showCart() {
@@ -135,8 +155,7 @@ function showCart() {
 
   const cartHTML = cart.map((item) => {
       const productDetails = allProducts.find(
-        (product) => product.id === item.id,
-      );
+        (product) => String(product.id) == String(item.id));
 
       totalPrice += item.quantity * productDetails.price
 
@@ -191,26 +210,27 @@ cartItems.addEventListener("click", (e)=>{
   const productID = targetBtn.dataset.id
   
   if(targetBtn.classList.contains("plus-btn")){
-    const item = cart.find(item => item.id == productID)
+    const item = cart.find(item => String(item.id) == String(productID))
     if(item){
       item.quantity += 1
     }
   }
 
   if (targetBtn.classList.contains("minus-btn")){
-    const item = cart.find(item => item.id == productID)
+    const item = cart.find(item => String(item.id)== String(productID))
 
     if(item){
       item.quantity -=1
 
       if(item.quantity === 0){
-        cart = cart.filter(item => item.id != productID)
+        cart = cart.filter(item => String(item.id) != String(productID))
       }
     }
   }
   if (targetBtn.closest(".delete-btn")) {
-        cart = cart.filter(item => item.id != productID);
+        cart = cart.filter(item => String(item.id) != String(productID));
     }
+    savetoLocalStorage();
     showCart();
 })
 
