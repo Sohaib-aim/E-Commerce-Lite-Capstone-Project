@@ -51,23 +51,27 @@ document.addEventListener("click", async (e)=>{
     if(!deleteBtn){
         return;
     }
-    const deleteProductID = deleteBtn.dataset.id;
+    const confirmDelete = confirm("Are you sure you want to delete this product?");
+    if(confirmDelete){
+        const deleteProductID = deleteBtn.dataset.id;
 
-    const URL = `http://localhost:3000/products/${deleteProductID}`
-    
-    try{
-        const response = await fetch(URL,{
-        method: "DELETE"
-    });
+        const URL = `http://localhost:3000/products/${deleteProductID}`
+        
+        try{
+            const response = await fetch(URL,{
+            method: "DELETE"
+        });
 
-    if(!response.ok){
-        throw new Error("Json Server not working. Try again!")
+        if(!response.ok){
+            throw new Error("Json Server not working. Try again!")
+        }
+        }
+        catch(err){
+            alert("Json server not working!")
+        }
     }
-
-    alert("Product Deleted Successfully!")
-    }
-    catch(err){
-        alert("Json server not working!")
+    else{
+        return;
     }
 })
 
