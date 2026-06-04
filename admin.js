@@ -80,6 +80,10 @@ document.addEventListener("click", async(e)=>{
     if(!updatBtn){
         return;
     }
+    window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+    });
     const updateProductID = updatBtn.dataset.id;
     currentEditingID = updateProductID;
     const productToUpdate = allProducts.find(product => product.id == updateProductID);
