@@ -290,13 +290,17 @@ body{
     border: 2px solid rgb(180, 180, 255)
 }
 
+#hero-buttons .active-view{
+    background: #d5d6d6;
+}
+
 #display-cards{
     padding-left: 40px;
     padding-right: 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
 }
 
 #display-cards .card{

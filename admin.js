@@ -46,7 +46,7 @@ function renderProducts(products){
     }).join("")
 }
 
-document.addEventListener("click", async (e)=>{
+inventoryData.addEventListener("click", async (e)=>{
     const deleteBtn = e.target.closest(".dlt-btn")
     if(!deleteBtn){
         return;
@@ -97,21 +97,25 @@ document.addEventListener("click", async(e)=>{
 
 productForm.addEventListener("submit", async (e)=>{
     e.preventDefault();
-    const updatedData = {
-            title: productNameInput.value,
-            price: productPriceInput.value,
-            image: productImgInput.value,
-            description: productDescInput.value
+    const productData = {
+            title: productNameInput.value.trim(),
+            price: productPriceInput.value.trim(),
+            image: productImgInput.value.trim(),
+            description: productDescInput.value.trim()
         }
 
-        const patchURL = `http://localhost:3000/products/${currentEditingID}`;
+        if (!productData.title || !productData.price || !productData.image || !productData.description){
+                alert("Please fill in all the fields!")
+                return;
+            }
 
     try{
         if(currentEditingID){
+            const patchURL = `http://localhost:3000/products/${currentEditingID}`;
             const response = await fetch(patchURL, {
                 method: "PATCH",
                 headers:{"Content-Type" : "application/json"},
-                body: JSON.stringify(updatedData)
+                body: JSON.stringify(productData)
             })
 
             if(!response.ok){
@@ -121,45 +125,20 @@ productForm.addEventListener("submit", async (e)=>{
             alert("Product updated successfully!")
         }
         else{
-            const productNameValue = productNameInput.value;
-            const productPriceValue = productPriceInput.value;
-            const productImgValue = productImgInput.value;
-            const productDescValue = productDescInput.value;
-
-            if (!productNameValue || !productPriceValue || !productImgValue || !productDescValue){
-                alert("Please fill in all the fields!")
-                return;
-            }
-
-            const newProductData = {
-                title: productNameValue,
-                price: productPriceValue,
-                description: productDescValue,
-                image: productImgValue
-            }
 
             const postURL = "http://localhost:3000/products"
-
-            try{
-                const response = await fetch(postURL, {
+            const response = await fetch(postURL, {
                 method: "POST",
                 headers: {"Content-Type" : "application/json"},
-                body: JSON.stringify(newProductData)
+                body: JSON.stringify(productData)
                 })
 
-                if(!response.ok){
-                    throw new Error("Sorry, new product can't be added now!")
-                }
-
-                productNameInput.value = "";
-                productPriceInput.value = "";
-                productDescInput.value = "";
-                productImgInput.value = "";
-            }
-            catch(err){
-                alert("Json server not working. Try again later!")
+            if(!response.ok){
+                throw new Error("Sorry, new product can't be added now!")
             }
         }
+        productForm.reset();
+        currentEditingID = null;
     }
     catch(err){
         alert("An error occured while updating!")

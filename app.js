@@ -26,20 +26,8 @@ function loadProducts() {
       const res = await fetch(API);
       const products = await res.json();
       allProducts = products;
-
-      container.innerHTML = products.map((product) => {
-          return `<div class="card">
-                    <img src="${product.image}"/>
-                    <div class="details">  
-                        <p>${product.category}</p>
-                        <h3>${product.title}</h3>
-                        <h2 id="price">$${product.price}</h2>
-                        <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                    </div>
-                </div>`;
-        })
-        .join("");
-        showCart();
+      renderProducts(products);
+      showCart();
   } catch(error){
     container.innerHTML = `
             <div class="error-text">
@@ -51,6 +39,20 @@ function loadProducts() {
 
 loadProducts();
 
+function renderProducts(productsList){
+  container.innerHTML = productsList.map(product=>{
+    return`<div class="card">
+                <img src="${product.image}">
+                <div class="details">
+                <p>${product.category}</p> 
+                <h3>${product.title}</h3>
+                <h2 class="price">$${product.price}</h2>
+                <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+                </div>
+              </div>`
+  }).join("")
+}
+
 let searchTimer;
 
 searchInput.addEventListener("input", (e) => {
@@ -60,40 +62,21 @@ searchInput.addEventListener("input", (e) => {
     searchTimer = setTimeout(()=>{const searchResults = allProducts.filter(product => {
         return product.title.toLowerCase().includes(searchTerm);
     });
-
-    container.innerHTML = searchResults.map(product => {
-        return `
-            <div class="card">
-                <img src="${product.image}">
-                <div class="details">
-                <p>${product.category}</p> 
-                <h3>${product.title}</h3>
-                <h2 id="price">$${product.price}</h2>
-                <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
-                </div>
-              </div>
-        `;
-    }).join("");}, 500)
+    renderProducts(searchResults);
+  }, 500)
 });
 
 viewAllBtn.addEventListener("click", ()=>{
-
-    container.innerHTML = allProducts.map(product=>{
-    return`<div class="card">
-                <img src="${product.image}">
-                <div class="details">
-                <p>${product.category}</p> 
-                <h3>${product.title}</h3>
-                <h2 id="price">$${product.price}<h2>
-                <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
-                </div>
-              </div>`
-  }).join("")
-})
+    viewAllBtn.classList.add("active-view");
+    categoryFilter.classList.remove("active-view");
+    renderProducts(allProducts);
+  })
 
 categoryFilter.addEventListener("change", (e)=>{
 
   let filteredProducts;
+  viewAllBtn.classList.remove("active-view");
+  categoryFilter.classList.add("active-view");
   const categorySelected = e.target.value.toLowerCase().trim()
 
   if (categorySelected === "all" || categorySelected === "") {
@@ -101,18 +84,7 @@ categoryFilter.addEventListener("change", (e)=>{
   else{
       filteredProducts = allProducts.filter(product => product.category.toLowerCase() == categorySelected);
   }
-
-  container.innerHTML = filteredProducts.map(product=>{
-    return`<div class="card">
-                <img src="${product.image}">
-                <div class="details">
-                <p>${product.category}</p> 
-                <h3>${product.title}</h3>
-                <h2 id="price">$${product.price}<h2>
-                <button class="add-to-cart" data-id="${product.id}"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
-                </div>
-              </div>`
-  }).join("")
+  renderProducts(filteredProducts);
 
 })
 
@@ -172,32 +144,31 @@ function showCart() {
   const cartHTML = cart.map((item) => {
       const productDetails = allProducts.find(
         (product) => String(product.id) == String(item.id));
-
-      totalPrice += item.quantity * productDetails.price
-
-      if (!productDetails) {
+      
+      if(!productDetails){
         return "";
       } else {
+        totalPrice += item.quantity * productDetails.price
         return `
-      <div class="cart-item">
-        <img src="${productDetails.image}"/>
-        <div class="cart-item-details">
-            <div class="cart-item-header">
-                <h5 class="cart-item-title">${productDetails.title}</h5>
-                <span class="cart-item-price">$${productDetails.price}</span>
-            </div>
-            <div class="cart-item-controls">
-                <div class="quantity-controls">
-                    <button class="qty-btn minus-btn" data-id="${item.id}">-</button>
-                    <span class="qty-num">${item.quantity}</span>
-                    <button class="qty-btn plus-btn" data-id="${item.id}">+</button>
-                </div>
-                <button class="delete-btn" data-id="${item.id}">
-                    <i class="fa fa-trash"></i>
-                </button>
-            </div>
-        </div>
-    </div>`}}).join("");
+        <div class="cart-item">
+          <img src="${productDetails.image}"/>
+          <div class="cart-item-details">
+              <div class="cart-item-header">
+                  <h5 class="cart-item-title">${productDetails.title}</h5>
+                  <span class="cart-item-price">$${productDetails.price}</span>
+              </div>
+              <div class="cart-item-controls">
+                  <div class="quantity-controls">
+                      <button class="qty-btn minus-btn" data-id="${item.id}">-</button>
+                      <span class="qty-num">${item.quantity}</span>
+                      <button class="qty-btn plus-btn" data-id="${item.id}">+</button>
+                  </div>
+                  <button class="delete-btn" data-id="${item.id}">
+                      <i class="fa fa-trash"></i>
+                  </button>
+              </div>
+          </div>
+      </div>`}}).join("");
 
     const totalHTML = ()=>{
                       if (totalPrice == 0){
@@ -253,21 +224,17 @@ cartItems.addEventListener("click", (e)=>{
 msgForm.addEventListener("submit", async (e)=>{
   e.preventDefault();
 
-  const msgNameValue = msgName.value;
-  const msgEmailValue = msgEmail.value;
-  const msgTextValue = msgText.value;
-
-  if ((!msgNameValue) || (!msgEmailValue) || (!msgTextValue)){
-    alert("Please fill in all fields before sending message!")
-    return;
-  }
-
   const url = "http://localhost:3000/messages"
 
   const messageData = {
-    name: msgNameValue,
-    email: msgEmailValue,
-    message: msgTextValue
+    name: msgName.value,
+    email: msgEmail.value,
+    message: msgText.value
+  }
+
+  if ((!messageData.name) || (!messageData.email) || (!messageData.message)){
+    alert("Please fill in all fields before sending message!")
+    return;
   }
 
   try{
@@ -283,9 +250,7 @@ msgForm.addEventListener("submit", async (e)=>{
 
     alert("Message sent successfully!")
 
-    msgName.value = "";
-    msgEmail.value = "";
-    msgText.value = "";
+    msgForm.reset()
   }
   catch (error){
     alert ("Could not save message. Our JSON Server is not running.");
