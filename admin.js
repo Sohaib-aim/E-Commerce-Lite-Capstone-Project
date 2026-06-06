@@ -3,6 +3,7 @@ const saveProductBtn = document.getElementById("product-save-button");
 const productNameInput = document.getElementById("product-name");
 const productPriceInput = document.getElementById("product-price");
 const productImgInput = document.getElementById("product-img");
+const productcategoryInput = document.getElementById("product-category");
 const productDescInput = document.getElementById("product-desc");
 const productForm = document.getElementById("product-form");
 const displayMsg = document.getElementById("message-content");
@@ -90,6 +91,7 @@ document.addEventListener("click", async(e)=>{
     productNameInput.value = productToUpdate.title;
     productPriceInput.value = productToUpdate.price;
     productImgInput.value = productToUpdate.image;
+    productcategoryInput.value = productToUpdate.category;
     productDescInput.value = productToUpdate.description;
 
     saveProductBtn.textContent = "Update Product";
@@ -101,10 +103,11 @@ productForm.addEventListener("submit", async (e)=>{
             title: productNameInput.value.trim(),
             price: productPriceInput.value.trim(),
             image: productImgInput.value.trim(),
+            category: productcategoryInput.value.trim(),
             description: productDescInput.value.trim()
         }
 
-        if (!productData.title || !productData.price || !productData.image || !productData.description){
+        if (!productData.title || !productData.price || !productData.image || !productData.category || !productData.description){
                 alert("Please fill in all the fields!")
                 return;
             }

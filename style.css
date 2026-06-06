@@ -185,6 +185,10 @@ body{
     align-items: center;
 }
 
+.add-to-cart:hover{
+    cursor: pointer;
+}
+
 .add-to-cart{
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
@@ -410,6 +414,15 @@ body{
     border: none;
     border-radius: 30px;
 }
+
+#banner-img-2 button>i{
+    transition: transform 0.2s ease-in-out;
+}
+
+#banner-img-2 button:hover>i{
+    transform: translateX(5px); 
+}
+
 
 #banner button:hover{
     background: #003EC7;
@@ -680,7 +693,8 @@ body{
     opacity: 0.7;
 }
 
-#product-name-price{
+#product-name-price,
+#product-image-category{
     display: flex;
     justify-content: space-between;
     gap: 20px;
