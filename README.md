@@ -5,7 +5,7 @@ A frontend-only e-commerce application built using HTML, CSS, and JavaScript. Th
 
 ## Project Preview
 
-![Project Preview](images/project-preview.png)
+![Project Preview](./images/project-preview.png)
 
 ---
 
@@ -44,19 +44,19 @@ A frontend-only e-commerce application built using HTML, CSS, and JavaScript. Th
 
 Browse products and add items to the shopping cart.
 
-![User Home Page](images/user-home.png)
+![User Home Page](./images/user-home.png)
 
 ### Cart Sidebar
 
 The shopping cart appears as a sidebar when the cart button is clicked.
 
-![Cart Sidebar](images/cart-sidebar.png)
+![Cart Sidebar](./images/cart-sidebar.png)
 
 ### Admin Page
 
 Admin interface for managing products stored in the mock API.
 
-![Admin Page](images/admin-page.png)
+![Admin Page](./images/admin-page.png)
 
 ---
 
@@ -84,7 +84,7 @@ E-COM CAPSTONE PROJECT/
     ├── user-home.png
     ├── cart-sidebar.png
     └── admin-page.png
-
+│
 ├── index.html
 ├── admin.html
 ├── styles.css
