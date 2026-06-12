@@ -5,7 +5,7 @@ A frontend-only e-commerce application built using HTML, CSS, and JavaScript. Th
 
 ## Project Preview
 
-![Project Preview](./screenshots/project-preview.png)
+![Project Preview](images/project-preview.png)
 
 ---
 
@@ -44,19 +44,19 @@ A frontend-only e-commerce application built using HTML, CSS, and JavaScript. Th
 
 Browse products and add items to the shopping cart.
 
-![User Home Page](./screenshots/user-home.png)
+![User Home Page](images/user-home.png)
 
 ### Cart Sidebar
 
 The shopping cart appears as a sidebar when the cart button is clicked.
 
-![Cart Sidebar](./screenshots/cart-sidebar.png)
+![Cart Sidebar](images/cart-sidebar.png)
 
 ### Admin Page
 
 Admin interface for managing products stored in the mock API.
 
-![Admin Page](./screenshots/admin-page.png)
+![Admin Page](images/admin-page.png)
 
 ---
 
@@ -80,11 +80,11 @@ E-COM CAPSTONE PROJECT/
     ├── curated.png
     ├── curated2.png
     ├── logo.png
-│   ├── project-preview.png
-│   ├── user-home.png
-│   ├── cart-sidebar.png
-│   └── admin-page.png
-│
+    ├── project-preview.png
+    ├── user-home.png
+    ├── cart-sidebar.png
+    └── admin-page.png
+
 ├── index.html
 ├── admin.html
 ├── styles.css
@@ -101,7 +101,7 @@ E-COM CAPSTONE PROJECT/
 ### Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Sohaib-aim/E-Commerce-Lite-Capstone-Project.git
 ```
 
 ### Navigate to the Project Directory
@@ -119,7 +119,7 @@ npm install -g json-server
 ### Start the Mock API
 
 ```bash
-json-server --watch db.json --port 3000
+json-server --watch db.json
 ```
 
 The API will be available at:
