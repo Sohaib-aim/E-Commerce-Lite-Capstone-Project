@@ -11,6 +11,9 @@ const msgName = document.getElementById("name");
 const msgEmail = document.getElementById("email");
 const msgText = document.getElementById("message");
 const msgForm = document.getElementById("newsletter-form");
+const nameError = document.getElementById("name-error");
+const emailError = document.getElementById("email-error");
+const messageError = document.getElementById("message-error");
 
 let allProducts = [];
 const API = "http://localhost:3000/products";
@@ -226,33 +229,66 @@ msgForm.addEventListener("submit", async (e)=>{
 
   const url = "http://localhost:3000/messages"
 
+  nameError.textContent = "";
+  emailError.textContent = "";
+  messageError.textContent = "";
+  
+  msgName.classList.remove("error-input");
+  msgEmail.classList.remove("error-input");
+  msgText.classList.remove("error-input");
+
   const messageData = {
     name: msgName.value,
     email: msgEmail.value,
     message: msgText.value
   }
 
-  if ((!messageData.name) || (!messageData.email) || (!messageData.message)){
-    alert("Please fill in all fields before sending message!")
+  let isValid = true;
+
+  if (!messageData.name) {
+    nameError.textContent = "Name is required.";
+    msgName.classList.add("error-input");
+    isValid = false;
+  }
+
+  if (!messageData.email) {
+    emailError.textContent = "Email address is required.";
+    msgEmail.classList.add("error-input");
+    isValid = false;
+  } else {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(messageData.email)) {
+      emailError.textContent = "Please enter a valid email address.";
+      msgEmail.classList.add("error-input");
+      isValid = false;
+    }
+  }
+
+  if (!messageData.message) {
+    messageError.textContent = "Message cannot be empty.";
+    msgText.classList.add("error-input");
+    isValid = false;
+  }
+
+  if (!isValid) {
     return;
   }
 
-  try{
-   const response = await fetch(url, {
+  try {
+    const response = await fetch(url, {
       method: "POST",
-      headers:{"Content-Type" : "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(messageData),
     });
 
-    if(!response.ok){
-      throw new Error("Failed to send message to the server!")
+    if (!response.ok) {
+      throw new Error("Failed to send message to the server!");
     }
 
-    alert("Message sent successfully!")
-
-    msgForm.reset()
+    alert("Message sent successfully!");
+    msgForm.reset();
+  } 
+  catch (error) {
+    alert("Could not save message. Our JSON Server is not running.");
   }
-  catch (error){
-    alert ("Could not save message. Our JSON Server is not running.");
-  }
-})
+});
