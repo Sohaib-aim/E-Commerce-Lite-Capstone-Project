@@ -1,4 +1,4 @@
-# E-Commerce-Lite-Capstone-Project
+# Sohaib Amir (F24BDOCS1M01023, 1M)
 Web Technologies 4th Semester Project
 
 A frontend-only e-commerce application built using HTML, CSS, and JavaScript. The project simulates a real online shopping experience by consuming data from a mock REST API created with JSON Server. Users can browse products, add items to their cart, and manage cart contents, while administrators can manage product data through a dedicated admin page.
